@@ -1,18 +1,23 @@
-import Position from '../models/position'
+// import db from '../models'
+// console.log(db);
+
+import Position from '../models/position.js';
+
+// const Position = require("../models").Position;
 
 const getPositions = async () => {
     try {
         const positions = await Position.findAll();
-
+        console.log(JSON.stringify(positions, null, 2))
         return {
             code: 0,
-            data: positions,            
+            data: positions,
         }
     }
     catch (error) {
         return {
             code: 1,
-            errorMessage: error.message
+            errorMessage: error.message,
         }
     }
 }
