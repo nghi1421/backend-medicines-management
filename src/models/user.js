@@ -1,59 +1,35 @@
-'use strict';
-const { Model } = require('sequelize');
+import Sequelize from 'sequelize';
+import { sequelize } from '../config/connectDB.js';
 
-const bcrypt = require('bcrypt');
-
-
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {
-      User.belongsTo(models.Position, { foreignKey: 'position_id' })
-    }
-  };
-  User.init({
+const User = sequelize.define(
+  'users',
+  {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
     email: {
         field: 'email',
+        unique: true,
         allowNull: false,
         type: DataTypes.STRING
     },
     password: {
         field: 'password',
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING(1000)
     },
-    name: {
-        field: "name",
-        allowNull: false,
-        type:DataTypes.STRING
+    createdAt: {
+      field: 'created_at',
+      type: Sequelize.STRING,
+
     },
-    address: {
-        field: "address",
-        allowNull: false,
-        type:DataTypes.STRING
+    updatedAt: {
+        field: 'updated_at',
+        type: Sequelize.STRING,
     },
-    phoneNumber: {
-        field: "phone_number",
-        allowNull: false,
-        type:DataTypes.STRING
-    },
-    gender: {
-        field: "gender",
-        allowNull: false,
-        type: DataTypes.TINYINT
-    },
-    role: {
-        field: "role",
-        allowNull: false,
-        type:DataTypes.STRING
-    },
-    positionId: {
-        field: "position_id",
-        allowNull: false,
-        type:DataTypes.STRING
-    },
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
-  return User;
-};
+  }, {}
+);
+
+export default User;

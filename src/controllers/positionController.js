@@ -4,10 +4,10 @@ const getPositions = async (req, res) => {
     try {
         const result = await positionService.getPositions();
 
-        res.status(200).json(result);
-        // res.status(200).json({
-        //     data: result.data,
-        // })
+        res.status(200).json({
+            errorCode: 0,
+            data: result.data,
+        })
     }
     catch (error) {
         res.status(200).json({
