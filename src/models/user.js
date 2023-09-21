@@ -2,19 +2,16 @@
 const {
   Model
 } = require('sequelize');
+const passwordService = require('../services/passwordService');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    // static associate(models) {
-    //   User.belongsTo(models.Allcode, { foreignKey: 'positionId', targetKey: 'keyMap', as: 'positionData' })
-    // }
+    static associate(models) {
+      User.hasOne(models.staffs, { foreignKey: 'userId', as: 'staffInfo' })
+      User.hasOne(models.customers, { foreignKey: 'userId', as: 'customerInfo' })
+    }
   };
   User.init({
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     email: {
         field: 'email',
         unique: true,
@@ -26,18 +23,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(1000)
     },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.STRING,
-
-    },
-    updatedAt: {
-        field: 'updated_at',
-        type: DataTypes.STRING,
+    role: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
     },
   }, {
     sequelize,
     modelName: 'users',
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
     
   return User;
