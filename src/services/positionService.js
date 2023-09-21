@@ -1,8 +1,13 @@
-import Position from '../models/position.js';
+const db = require('../models');
+const Position = db.positions;
 
 const getPositions = async () => {
     try {
-        const positions = await Position.findAll();
+        const positions = await Position.findOne({ include: [
+                    { model: db.staffs, as: 'staffs' },
+                ],
+            });
+
         return {
             code: 0,
             data: positions,
@@ -11,7 +16,7 @@ const getPositions = async () => {
     catch (error) {
         return {
             code: 1,
-            errorMessage: error.message,
+            errorMessage: error,
         }
     }
 }
@@ -40,4 +45,7 @@ const getPosition = async (positionId) => {
     }
 }
 
-export default { getPositions, getPosition }
+module.exports = {
+    getPositions: getPositions,
+    getPosition: getPosition
+}

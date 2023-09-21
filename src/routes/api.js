@@ -1,5 +1,5 @@
-import express from 'express';
-import positionController from '../controllers/positionController.js';
+const express = require('express');
+const positionController = require('../controllers/positionController.js');
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ const routes = (app) => {
     return app.use("/api", router);
 }
 
-export default routes;
+module.exports = routes;

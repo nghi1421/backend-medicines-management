@@ -1,4 +1,4 @@
-import positionService from  '../services/positionService.js';
+const positionService = require('../services/positionService.js');
 
 const getPositions = async (req, res) => {
     try {
@@ -33,4 +33,7 @@ const getPosition = async (req, res) => {
     }
 }
 
-export default { getPositions, getPosition }
+module.exports = {
+    getPositions: getPositions, 
+    getPosition: getPosition
+}

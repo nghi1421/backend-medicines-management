@@ -20,7 +20,6 @@
   },
   "author": "Hubert Nguyen",
   "license": "ISC",
-  "type": "module",
   "description": "",
   "devDependencies": {
     "@babel/cli": "^7.22.15",

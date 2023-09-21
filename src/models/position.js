@@ -1,15 +1,22 @@
-import Sequelize from 'sequelize';
-import { sequelize } from '../config/connectDB.js';
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
-const Position = sequelize.define(
-  'positions', {
+module.exports = (sequelize, DataTypes) => {
+  class Position extends Model {
+    static associate(models) {
+      Position.hasMany(models.staffs, { foreignKey: 'position_id', as: 'staffs' })
+    }
+  };
+  Position.init({
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     name: {
-        type: Sequelize.STRING(50),
+        type: DataTypes.STRING(50),
         allowNull: false,
         validate: {
             max: 50,
@@ -17,21 +24,17 @@ const Position = sequelize.define(
     },
     createdAt: {
       field: 'created_at',
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
 
     },
     updatedAt: {
         field: 'updated_at',
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
     },
-  }, {}
-);
-
-Position.associate = (models) => {
-  Position.hasMany(models.staffs, {
-    foreignKey: 'position_id',
-    as: 'staffs'
+  }, {
+    sequelize,
+    modelName: 'positions',
   });
-}
-
-export default Position;
+    
+  return Position;
+};

@@ -1,13 +1,19 @@
-import Sequelize from 'sequelize';
-import { sequelize } from '../config/connectDB.js';
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
-const User = sequelize.define(
-  'users',
-  {
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    // static associate(models) {
+    //   User.belongsTo(models.Allcode, { foreignKey: 'positionId', targetKey: 'keyMap', as: 'positionData' })
+    // }
+  };
+  User.init({
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     email: {
         field: 'email',
@@ -22,14 +28,17 @@ const User = sequelize.define(
     },
     createdAt: {
       field: 'created_at',
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
 
     },
     updatedAt: {
         field: 'updated_at',
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
     },
-  }, {}
-);
-
-export default User;
+  }, {
+    sequelize,
+    modelName: 'users',
+  });
+    
+  return User;
+};

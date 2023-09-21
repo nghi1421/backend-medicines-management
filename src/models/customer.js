@@ -1,13 +1,19 @@
-import Sequelize from 'sequelize';
-import { sequelize } from '../config/connectDB.js';
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
-const Customer = sequelize.define(
-  'customers',
-  {
+module.exports = (sequelize, DataTypes) => {
+  class Customer extends Model {
+    static associate(models) {
+      Customer.belongsTo(models.users, { foreignKey: 'user_id' })
+    }
+  };
+  Customer.init({
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     name: {
         field: "name",
@@ -31,22 +37,17 @@ const Customer = sequelize.define(
     },
     createdAt: {
       field: 'created_at',
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
 
     },
     updatedAt: {
         field: 'updated_at',
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
     },
-  }, {}
-);
-
-Customer.associate = (models) => {
-  Customer.belongsTo(models.users, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-    as: 'user'
+  }, {
+    sequelize,
+    modelName: 'customers',
   });
-}
-
-export default Customer;
+    
+  return Customer;
+};

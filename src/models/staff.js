@@ -1,28 +1,36 @@
-import Sequelize from 'sequelize';
-import { sequelize } from '../config/connectDB.js';
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
-const Staff = sequelize.define(
-  'staffs',
-  {
+module.exports = (sequelize, DataTypes) => {
+  class Staff extends Model {
+    static associate(models) {
+      Staff.belongsTo(models.positions, { foreignKey: 'position_id' })
+      
+      Staff.belongsTo(models.users, { foreignKey: 'user_id' })
+    }
+  };
+  Staff.init({
     id: {
       allowNull: false,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     name: {
         field: "name",
         allowNull: false,
-        type:DataTypes.STRING
+        type: DataTypes.STRING
     },
     address: {
         field: "address",
         allowNull: false,
-        type:DataTypes.STRING
+        type: DataTypes.STRING
     },
     phoneNumber: {
         field: "phone_number",
         allowNull: false,
-        type:DataTypes.STRING(20)
+        type: DataTypes.STRING(20)
     },
     gender: {
         field: "gender",
@@ -32,7 +40,7 @@ const Staff = sequelize.define(
     positionId: {
         field: "position_id",
         allowNull: false,
-        type:DataTypes.STRING
+        type: DataTypes.STRING
     },
     userId: {
         field: "user_id",
@@ -41,27 +49,17 @@ const Staff = sequelize.define(
     },
     createdAt: {
       field: 'created_at',
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
 
     },
     updatedAt: {
         field: 'updated_at',
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
     },
-  }, {}
-);
-
-Staff.associate = (models) => {
-  Staff.belongsTo(models.users, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-    as: 'user'
+  }, {
+    sequelize,
+    modelName: 'staffs',
   });
-
-  Staff.belongsTo(models.positions, {
-    foreignKey: 'position_id',
-    as: 'position'
-  })
-}
-
-export default Staff;
+    
+  return Staff;
+};
