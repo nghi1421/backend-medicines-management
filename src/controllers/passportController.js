@@ -17,7 +17,6 @@ const handlePassport = () => {
             return done(null, resultLogin.errorMessage);
         }
     }));
-
 }
 
 module.exports = handlePassport

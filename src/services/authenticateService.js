@@ -1,9 +1,9 @@
 const User = require('../models').users;
 const bcrypt = require('bcrypt');
 
-const login = async (data, id) => {
+const login = async (data) => {
     try {
-        const user = await User.findOne({ id: id })
+        const user = await User.findOne({ where: { username: data.username }})
 
         if (user) {
             if (bcrypt.compareSync(data.password, user.password)) {

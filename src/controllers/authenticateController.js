@@ -4,14 +4,14 @@ const authenticateService = require('../services/authenticateService');
 
 const login = async (req, res) => {
     const data = {
-        username: res.body.username,
-        password: res.body.password,
+        username: req.body.username,
+        password: req.body.password,
     };
-    if (data.name && data.password) {
+    if (data.username && data.password) {
         const resultLogin = await authenticateService.login(data)
-
-        if (resultLogin & resultLogin.code === 0) {
-            const payload = { id: user.id };
+        console.log(resultLogin)
+        if (resultLogin && resultLogin.code === 0) {
+            const payload = { id: resultLogin.data.id };
             const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
             res.status(200).json({
                 data: resultLogin.data,
@@ -25,7 +25,9 @@ const login = async (req, res) => {
             });
         }
     }
-    res.status(200).json({ errorMessage: 'Missing parameters'})
+    else {
+        res.status(200).json({ errorMessage: 'Missing parameters'})
+    }
 }
   
 module.exports = {
