@@ -32,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(20)
     },
+    email: {
+        field: 'email',
+        unique: true,
+        allowNull: false,
+        type: DataTypes.STRING
+    },
     gender: {
         field: "gender",
         allowNull: false,
@@ -47,18 +53,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.STRING,
-
-    },
-    updatedAt: {
-        field: 'updated_at',
-        type: DataTypes.STRING,
-    },
   }, {
     sequelize,
     modelName: 'staffs',
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
     
   return Staff;

@@ -29,24 +29,24 @@ module.exports = (sequelize, DataTypes) => {
         field: "phone_number",
         allowNull: false,
         type:DataTypes.STRING(20)
-      },
+    },
+    email: {
+        field: 'email',
+        unique: true,
+        allowNull: false,
+        type: DataTypes.STRING
+    },
     userId: {
         field: "user_id",
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.STRING,
-
-    },
-    updatedAt: {
-        field: 'updated_at',
-        type: DataTypes.STRING,
-    },
+    }
   }, {
     sequelize,
     modelName: 'customers',
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
     
   return Customer;

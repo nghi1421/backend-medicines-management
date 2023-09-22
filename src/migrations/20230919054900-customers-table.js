@@ -16,8 +16,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       phone_number: {
+        unique: true,
         allowNull: false,
         type: Sequelize.STRING(20)
+      },
+      email: {
+        unique: true,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       user_id: {
         references: {

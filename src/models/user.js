@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const passwordService = require('../services/passwordService');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -12,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    email: {
-        field: 'email',
+    username: {
+        field: 'username',
         unique: true,
         allowNull: false,
         type: DataTypes.STRING

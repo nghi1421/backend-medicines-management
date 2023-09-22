@@ -21,8 +21,14 @@ module.exports = {
         defaultValue: 0,
       },
       phone_number: {
+        unique: true,
         allowNull: false,
         type: Sequelize.STRING(20)
+      },
+      email: {
+        unique: true,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       position_id: {
         references: {

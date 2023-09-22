@@ -1,10 +1,13 @@
 const express = require('express');
 const positionController = require('../controllers/positionController.js');
 const userController = require('../controllers/userController.js');
+const passport = require('passport');
 
 const router = express.Router();
 
 const routes = (app) => {
+    router.post('/login', passport.authenticate('jwt', { session: false }))
+
     router.get('/positions', positionController.getPositions)
 
     //users

@@ -22,18 +22,12 @@ module.exports = (sequelize, DataTypes) => {
             max: 50,
         }
     },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.STRING,
-
-    },
-    updatedAt: {
-        field: 'updated_at',
-        type: DataTypes.STRING,
-    },
   }, {
     sequelize,
     modelName: 'positions',
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
     
   return Position;
