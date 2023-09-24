@@ -3,10 +3,7 @@ const Position = db.positions;
 
 const getPositions = async () => {
     try {
-        const positions = await Position.findOne({ include: [
-                    { model: db.staffs, as: 'staffs' },
-                ],
-            });
+        const positions = await Position.findAll();
 
         return {
             code: 0,

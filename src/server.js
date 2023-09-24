@@ -2,12 +2,9 @@ const express = require('express');
 const routes = require('./routes/api')
 const passport = require('./config/passport')
 require('dotenv').config();
-const User = require('./models/index').users
 const bodyParser = require('body-parser')
 const sequelize = require('./config/connectDB');
-const session = require('./config/session');
 
-// const handlePassport = require('./controllers/passportController');
 
 const port = 3000;
 const app = express();
@@ -17,9 +14,7 @@ app.use(bodyParser.json())
 app.use(require('cookie-parser')());
 
 routes(app);
-session(app);
 passport(app)
-// handlePassport();
 
 function checkConnectDB() {
     try {

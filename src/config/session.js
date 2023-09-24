@@ -24,7 +24,7 @@ const configSession = (app) => {
     });
 
     app.use(session({
-            secret: "nguyenthanhnghi__secretkey_123",
+            secret: process.env.SESSION_SECRET_KEY,
             store: myStore,
             resave: false,
             proxy: true,
@@ -34,9 +34,6 @@ const configSession = (app) => {
     myStore.sync();
 
     app.use(passport.authenticate('session'))
-
-    app.use(passport.initialize());
-    app.use(passport.session());
     
     passport.serializeUser(function (user, cb) {
         console.log('Serialize', user);

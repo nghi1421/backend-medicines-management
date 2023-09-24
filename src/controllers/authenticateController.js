@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authenticateService = require('../services/authenticateService');
+const passport = require('passport')
 
 const login = async (req, res) => {
     const data = {
@@ -9,14 +10,17 @@ const login = async (req, res) => {
     };
     if (data.username && data.password) {
         const resultLogin = await authenticateService.login(data)
-        console.log(resultLogin)
         if (resultLogin && resultLogin.code === 0) {
-            const payload = { id: resultLogin.data.id };
-            const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+            const payload = {
+                id: resultLogin.data.id,
+                role: resultLogin.data.role,
+            };
+            const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: 60 * 60 * 24 * 7 });
+
             res.status(200).json({
                 data: resultLogin.data,
-                token: token
-            });
+                token,
+            });   
         }
         else {
             res.status(200).json({
@@ -29,7 +33,14 @@ const login = async (req, res) => {
         res.status(200).json({ errorMessage: 'Missing parameters'})
     }
 }
+
+const logout = async (req, res, next) => {
+    res.status(200).json({
+        message: 'Logout successfully'
+    });
+}
   
 module.exports = {
-    login
+    login,
+    logout
 }
