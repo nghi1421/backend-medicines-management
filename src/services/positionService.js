@@ -18,9 +18,9 @@ const getPositions = async () => {
     }
 }
 
-const getPosition = async (positionId) => {
+const searchPosition = async (query) => {
     try {
-        const position = await Position.findByPk(positionId);
+        const position = await Position.findAll(query);
 
         if (!position) {
             return {
@@ -42,7 +42,69 @@ const getPosition = async (positionId) => {
     }
 }
 
+const createPosition = async (data) => {
+    try {
+        const position = await Position.create({
+            name: data.name
+        })
+        return {
+            code: 0,
+            data: position
+        }
+    } catch (error) {
+        return {
+            code: 1,
+            errorMessage: error.message
+        } 
+    }
+}
+
+const updatePosition = async (positionId, data) => {
+    try {
+        const position = await Position.findAll(query);
+
+        if (position) {
+            position.name = data.name;
+            position.save()
+
+            return {
+                code: 0,
+                message: 'Update position successfully'
+            }
+        }
+        return {
+            code: 2,
+            errorMessage: 'Position not found',
+        }
+    }
+    catch (error) {
+        return {
+            code: 1,
+            errorMessage: error.message
+        } 
+    }
+}
+
+const deletePosition = async (positionId) => {
+    try {
+        await Position.destroy({ where: { id: positionId }});
+        return {
+            code: 2,
+            errorMessage: 'Position not found',
+        }
+    }
+    catch (error) {
+        return {
+            code: 1,
+            errorMessage: error.message
+        } 
+    }
+}
+
 module.exports = {
-    getPositions: getPositions,
-    getPosition: getPosition
+    getPositions,
+    searchPosition,
+    createPosition,
+    updatePosition,
+    deletePosition,
 }

@@ -8,10 +8,16 @@ const passport = require('passport');
 const router = express.Router();
 
 const routes = (app) => {
+    //authenticate
     router.post('/login', authenticateController.login)
     router.post('/logout', passport.authenticate('jwt', { session: false }), authenticateController.logout)
+
     //positions
     router.get('/positions', positionController.getPositions)
+    router.get('/positions/:positionId', positionController.searchPosition)
+    router.post('positions', positionController.createPosition)
+    router.put('/positions/:positionId', positionController.updatePosition)
+    router.delete('/positions/:positionId', positionController.deletePosition)
 
     //users
     router.get('/users',  userController.getUsers)

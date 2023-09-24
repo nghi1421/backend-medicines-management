@@ -17,9 +17,9 @@ const getPositions = async (req, res) => {
     }
 }
 
-const getPosition = async (req, res) => {
+const searchPosition = async (req, res) => {
     try {
-        const result = await positionService.getPosition(req.query.position_id);
+        const result = await positionService.searchPosition(req.query.position_id);
         
         res.status(200).json({
             data: result.data,
@@ -33,7 +33,73 @@ const getPosition = async (req, res) => {
     }
 }
 
+const createPosition = async (req, res) => {
+    try {
+        const result = await positionService.createPosition(req.body);
+        if (result.code === 0) {
+            res.status(200).json({
+                message: 'Position created successfully',
+            })
+        }
+        else {
+            res.status(200).json({
+                message: result.errorMessage,
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Server not responding'
+        })
+    }
+}
+
+const updatePosition = async (req, res) => {
+    try {
+        const result = await positionService.updatePosition(req.params.positionId, req.body);
+        if (result.code === 0) {
+            res.status(200).json({
+                message: 'Position updated successfully',
+            })
+        }
+        else {
+            res.status(200).json({
+                message: result.errorMessage,
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Server not responding'
+        })
+    }
+}
+
+const deletePosition = async (req, res) => {
+    try {
+        const result = await positionService.deletePosition(req.params.positionId);
+        if (result.code === 0) {
+            res.status(200).json({
+                message: 'Position deleted successfully',
+            })
+        }
+        else {
+            res.status(200).json({
+                message: result.errorMessage,
+            })
+        }
+    }
+    catch (error) {
+        res.status(500).json({
+            message: 'Server not responding'
+        })
+    }
+}
+
 module.exports = {
-    getPositions: getPositions, 
-    getPosition: getPosition
+    getPositions, 
+    searchPosition,
+    createPosition,
+    updatePosition,
+    deletePosition,
 }
