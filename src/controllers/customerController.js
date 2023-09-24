@@ -1,8 +1,8 @@
-const staffService = require('../services/staffService');
+const customerService = require('../services/customerService')
 
-const getStaffs = async (req, res) => {
+const getCustomers = async (req, res) => {
     try {
-        const result = await staffService.getStaffs();
+        const result = await customerService.getCustomers();
         if (result.code === 0) {
             res.status(200).json({
                 data: result.data
@@ -18,9 +18,9 @@ const getStaffs = async (req, res) => {
     }
 }
 
-const searchStaff = async (req, res) => {
+const searchCustomer = async (req, res) => {
     try {
-        const result = await staffService.searchStaff({...req.body, id: req.params.staffId});
+        const result = await customerService.searchCustomer({...req.body, id: req.params.customerId});
         if (result.code === 0) {
             res.status(200).json({
                 data: result.data
@@ -36,9 +36,9 @@ const searchStaff = async (req, res) => {
     }
 }
 
-const createStaff = async (req, res) => {
+const createCustomer = async (req, res) => {
     try {
-        const result = await staffService.createStaff(req.body);
+        const result = await customerService.createCustomer(req.body);
         if (result.code === 0) {
             res.status(200).json({
                 data: result.data
@@ -54,9 +54,9 @@ const createStaff = async (req, res) => {
     }
 }
 
-const updateStaff = async (req, res) => {
+const updateCustomer = async (req, res) => {
     try {
-        const result = await staffService.updateStaff(req.params.staffId, req.body);
+        const result = await customerService.updateCustomer(req.params.customerId, req.body);
         if (result.code === 0) {
             res.status(200).json({
                 data: result.data
@@ -72,9 +72,9 @@ const updateStaff = async (req, res) => {
     }
 }
 
-const deleteStaff = async (req, res) => {
-    try {
-        const result = await staffService.deleteStaff(req.params.staffId);
+const deleteCustomer = async (req, res) => {
+try {
+        const result = await customerService.deleteCustomer(req.params.customerId);
         if (result.code === 0) {
             res.status(200).json({
                 data: result.data
@@ -91,9 +91,9 @@ const deleteStaff = async (req, res) => {
 }
 
 module.exports = {
-    getStaffs,
-    searchStaff,
-    createStaff,
-    updateStaff,
-    deleteStaff
+    getCustomers,
+    searchCustomer,
+    createCustomer,
+    updateCustomer,
+    deleteCustomer,
 }

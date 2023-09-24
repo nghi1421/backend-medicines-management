@@ -2,6 +2,7 @@ const express = require('express');
 const positionController = require('../controllers/positionController.js');
 const userController = require('../controllers/userController.js');
 const staffController = require('../controllers/staffController.js');
+const customerController = require('../controllers/customerController.js');
 const authenticateController = require('../controllers/authenticateController.js');
 const passport = require('passport');
 
@@ -31,6 +32,13 @@ const routes = (app) => {
     router.post('/staffs', staffController.createStaff)
     router.put('/staffs/:staffId', staffController.updateStaff)
     router.delete('/staffs/:staffId', staffController.deleteStaff)
+
+    //customers
+    router.get('/customers', customerController.getCustomers)
+    router.get('/customers/:customerId', customerController.searchCustomer)
+    router.post('/customers', customerController.createCustomer)
+    router.put('/customers/:customerId', customerController.updateCustomer)
+    router.delete('/customers/:customerId', customerController.deleteCustomer)
 
     router.get('/test-token', passport.authenticate('jwt', { session: false }),async function (req, res) {
         const user = await req.user
