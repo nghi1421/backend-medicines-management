@@ -55,25 +55,18 @@ const createCustomer = async (data) => {
 
 const updateCustomer = async (customerId, data) => {
     try {
-        let customer = await Customer.findByPk(customerId);
+        await Customer.update({
+            name: data.name,
+            email: data.email,
+            phoneNumber: data.phone_number,
+            address: data.address
+        }, { where: { id: customerId } })
+        
+        return {
+            code: 0,
+            message: 'Update customer successfully'
+        }
 
-        if (customer) {
-            customer.name = data.name;
-            customer.email = data.email;
-            customer.phoneNumber = data.phone_number;
-            customer.address = data.address;
-            customer.save();
-            return {
-                code: 0,
-                message: 'Update customer successfully'
-            }
-        }
-        else {
-            return {
-                code: 1,
-                errorMessage: 'Customer not found'
-            }
-        }
     }
     catch (error) {
         return {

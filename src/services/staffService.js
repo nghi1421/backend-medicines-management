@@ -57,31 +57,23 @@ const createStaff = async (data) => {
 
 const updateStaff = async (staffId, data) => {
     try {
-        let staff = await Staff.findByPk(staffId);
+        await Staff.update( {
+            name: data.name,
+            email: data.email,
+            positionId: data.position_id,
+            phoneNumber: data.phone_number,
+            gender: data.gende,
+            address: data.address,
+        }, { where: { id: staffId } });
 
-        if (staff) {
-            staff.name = data.name;
-            staff.email = data.email;
-            staff.positionId = data.position_id;
-            staff.phoneNumber = data.phone_number;
-            staff.gender = data.gender
-            staff.address = data.address;
-            staff.save();
-            return {
-                code: 0,
-                message: 'Update staff successfully'
-            }
-        }
-        else {
-            return {
-                code: 1,
-                errorMessage: 'Staff not found'
-            }
+        return {
+            code: 0,
+            message: 'Update staff successfully'
         }
     }
     catch (error) {
         return {
-            code: 2,
+            code: 1,
             errorMessage: error
         }
     }

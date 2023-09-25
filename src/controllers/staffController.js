@@ -59,7 +59,7 @@ const updateStaff = async (req, res) => {
         const result = await staffService.updateStaff(req.params.staffId, req.body);
         if (result.code === 0) {
             res.status(200).json({
-                data: result.data
+                message: result.message
             })
         }
         else {
@@ -77,7 +77,7 @@ const deleteStaff = async (req, res) => {
         const result = await staffService.deleteStaff(req.params.staffId);
         if (result.code === 0) {
             res.status(200).json({
-                data: result.data
+                data: result.message
             })
         }
         else {

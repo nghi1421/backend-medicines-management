@@ -61,20 +61,10 @@ const createPosition = async (data) => {
 
 const updatePosition = async (positionId, data) => {
     try {
-        const position = await Position.findAll(query);
-
-        if (position) {
-            position.name = data.name;
-            position.save()
-
-            return {
-                code: 0,
-                message: 'Update position successfully'
-            }
-        }
+        await Position.update({name: data.name}, {where: {id: positionId}});
         return {
-            code: 2,
-            errorMessage: 'Position not found',
+            code: 0,
+            message: 'Update position successfully'
         }
     }
     catch (error) {

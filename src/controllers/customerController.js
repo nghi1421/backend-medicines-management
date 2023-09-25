@@ -59,7 +59,7 @@ const updateCustomer = async (req, res) => {
         const result = await customerService.updateCustomer(req.params.customerId, req.body);
         if (result.code === 0) {
             res.status(200).json({
-                data: result.data
+                data: result.message
             })
         }
         else {
@@ -77,7 +77,7 @@ try {
         const result = await customerService.deleteCustomer(req.params.customerId);
         if (result.code === 0) {
             res.status(200).json({
-                data: result.data
+                data: result.message
             })
         }
         else {

@@ -12,11 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Staff.init({
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     name: {
         field: "name",
         allowNull: false,
@@ -51,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
         field: "user_id",
         type: DataTypes.INTEGER,
-        allowNull: false,
     },
   }, {
     sequelize,
